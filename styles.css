@@ -1,0 +1,35 @@
+.boc-title {
+    margin:5px 0 0 0;
+    text-transform: uppercase;
+    color: #333;
+    cursor: pointer;
+}
+.boc-title:after {
+    content: attr(data-episode-count);
+    display:block;
+    font-size: 12px;
+    margin:0 0 3px 0;
+    color:#666;
+}
+.boc-episode-container {
+    overflow:auto;
+    max-height: 400px;
+    margin-bottom:10px;
+    border:#ccc 1px solid;
+    border-radius: 1px;
+    padding:2px 2px 3px 2px;
+}
+.boc-collapsed-episode-container {
+    max-height: 0;
+    overflow:hidden;
+    margin-bottom:0;
+    border-color:transparent;
+    padding: 0;
+}
+
+.boc-episode-container .episodecell {
+    margin-bottom:4px;
+}
+.boc-episode-container .episodecell:last-child {
+    margin-bottom: 0;
+}
