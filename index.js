@@ -26,7 +26,7 @@ wrappers.forEach(wrapper => {
 function renderEpisodeContainer(podcast) {
     const wrapper = document.createElement('div');
     const episodesContainer = document.createElement('div');
-    const header = document.createElement('div');
+    const header = document.createElement('a');
     const title = document.createElement('h3');
     const episodeCount = podcast.episodes.length;
     title.classList.add('boc-title');
@@ -35,7 +35,11 @@ function renderEpisodeContainer(podcast) {
         `${episodeCount} ${episodeCount === 1 ? 'episode' : 'episodes'}`
     );
 
+    header.setAttribute('href', '#');
+    header.classList.add('boc-podcast-title-container');
+    header.appendChild(podcast.image);
     header.appendChild(title);
+    
     wrapper.appendChild(header);
     episodesContainer.classList.add('boc-episode-container');
     episodesContainer.classList.add('boc-collapsed-episode-container');
@@ -46,14 +50,18 @@ function renderEpisodeContainer(podcast) {
 
     wrapper.appendChild(episodesContainer);
 
-    title.addEventListener('click', toggleOpen);
+    header.addEventListener('click', toggleOpen);
 
     return wrapper;
 }
 
 function toggleOpen(event) {
-    const clickedTitle = event.target;
-    const container = clickedTitle.parentElement.nextElementSibling;
+    event.preventDefault();
+    let clickedTitle = event.target;
+    if (clickedTitle.nodeName != 'A') {
+        clickedTitle = clickedTitle.parentElement;
+    }
+    const container = clickedTitle.nextElementSibling;
     if (container.classList.contains('boc-collapsed-episode-container')) {
         container.classList.remove('boc-collapsed-episode-container');
     } else {
