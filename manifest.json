@@ -7,7 +7,7 @@
   "description": "Make navigating the Overcast active podcasts a bit easier",
 
   "icons": {
-    "48": "icons/border-48.png"
+    "48": "icon.png"
   },
 
   "content_scripts": [
