@@ -1,7 +1,14 @@
 .boc-podcast-title-container {
     padding: 2px;
     margin: 1px 1px 2px 1px;
-    display: block;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row;
+    text-decoration: none;
+}
+.boc-podcast-title-container:hover .boc-title,
+.boc-podcast-title-container:focus .boc-title {
+    color:#c26717;
 }
 .boc-title {
     margin:3px 0 0 5px;
@@ -12,6 +19,7 @@
 }
 .boc-podcast-title-container img {
     width:44px;
+    margin-top:6px;
     display: inline-block;
     vertical-align: top
 }
