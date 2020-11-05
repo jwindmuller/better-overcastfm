@@ -6,17 +6,24 @@
         const artURL = episodeCell.getElementsByClassName('art')[0].src;
         let promise = null;
         if (!podcasts[artURL]) {
-
             podcasts[artURL] = {
                 artURL,
                 image: episodeCell.getElementsByClassName('art')[0].cloneNode(),
                 episodes: [],
                 name: 'Podcast name not found'
-            }
-            promise = new Promise((resolve, reject) => {
+            };
+            
+            promise = new Promise(async (resolve, reject) => {
+                const storedName = await browser.storage.local.get(artURL);
+                if (storedName[artURL] !== undefined) {
+                    podcasts[artURL].name = storedName[artURL];
+                    resolve(artURL);
+                    return;
+                }
+                
+                
                 fetch(episodeCell.href).then(async episodeResponse => {
                     var episodeResponseBodyReader = episodeResponse.body.getReader();
-                    let title = 'Title not found';
                     try {
                         let { value: chunk, done: readerDone } = await episodeResponseBodyReader.read();
                         const utf8Decoder = new TextDecoder('utf-8');
@@ -24,14 +31,16 @@
                         const div = document.createElement('div');
                         div.innerHTML = chunk;
                         let h3s = div.getElementsByTagName('h3');
-
                         if (h3s.length === 1) {
                             podcasts[artURL].name = h3s[0].innerText.trim();
+                            await browser.storage.local.set({
+                                [artURL] : podcasts[artURL].name
+                            });
                         }
                     } catch (e) { }
-                    resolve('success');
+                    resolve(artURL);
                 }).catch(async e => {
-                    resolve('error');
+                    resolve(artURL);
                 });
             });
         }
