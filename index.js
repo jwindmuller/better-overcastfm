@@ -100,8 +100,8 @@
 
 
     console.log('waiting now...', podcasts);
-    await Promise.all(episodeRequests);
-    Object.keys(podcasts).forEach(artURL => {
+    episodeRequests.forEach(async (p)=> {
+        const artURL = await p;
         var podcastInfo = podcasts[artURL];
         if (!podcastInfo.container) {
             return;
