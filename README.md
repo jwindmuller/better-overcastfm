@@ -8,3 +8,11 @@ Now available on the [Firefox add-ons directory](https://addons.mozilla.org/en-U
 
 ![](./active-episodes.png "Active Episodes")
 
+## Development process
+
+I develop this extension on Firefox following this steps:
+
+1. Open about:debugging#/runtime/this-firefox
+2. Click on "Load Temporary Add-on..."
+3. Open the manifest.json file
+4. Click Reload every time I do any changes
