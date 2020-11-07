@@ -59,6 +59,7 @@
 
 
     function renderEpisodeContainer(podcast) {
+        const episodeCount = podcast.episodes.length;
         const tpl = `
 <div class="boc-podcast-container">
     <div class="boc-podcast-art-container">
@@ -66,13 +67,16 @@
     </div>
     <div class="boc-episodes-container">
         <h3 class="boc-podcast-title loading">...</h3>
+        <h4 class="boc-podcast-subtitle">${episodeCount} ${episodeCount === 1 ? 'episode' : 'episodes'}</h4>
+        <div class="boc-episodes-list"></div>
     </div>
 </div>
     `;
 
         const container = document.createElement('div');
+        container.className=  'boc-main-wrapper boc-collapsed-episode-container';
         container.innerHTML = tpl;
-        const episodesContainer = container.getElementsByClassName('boc-episodes-container')[0];
+        const episodesContainer = container.getElementsByClassName('boc-episodes-list')[0];
 
         podcast.episodes.forEach(episodeCell => {
             episodesContainer.appendChild(episodeCell);
@@ -84,13 +88,23 @@
     }
 
     function toggleOpen(event) {
-        event.preventDefault();
-        debugger
-        let clickedTitle = event.target;
-        if (clickedTitle.nodeName != 'A') {
-            clickedTitle = clickedTitle.parentElement;
+        let target = event.target;
+        let linkClicked = false;
+        while(true){
+            if (target.classList.contains('boc-main-wrapper')) {
+                break;
+            }
+            if (target.classList.contains('episodecell')) {
+                linkClicked = true;
+                break;
+            }
+            target = target.parentElement;
         }
-        const container = clickedTitle.nextElementSibling;
+        if (linkClicked) {
+            return;
+        }
+        event.preventDefault();
+        const container = event.currentTarget;
         if (container.classList.contains('boc-collapsed-episode-container')) {
             container.classList.remove('boc-collapsed-episode-container');
         } else {
