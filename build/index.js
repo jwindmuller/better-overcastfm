@@ -7,6 +7,7 @@ const files = [
     'icon1024.png',
     'index.js',
     'styles.css',
+    'manifest.json'
 ];
 
 files.forEach(fileName => {
