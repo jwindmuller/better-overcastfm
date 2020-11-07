@@ -12,7 +12,7 @@
                 episodes: [],
                 name: 'Podcast name not found'
             };
-            
+
             promise = new Promise(async (resolve, reject) => {
                 const storedName = await browser.storage.local.get(artURL);
                 if (storedName[artURL] !== undefined) {
@@ -20,8 +20,8 @@
                     resolve(artURL);
                     return;
                 }
-                
-                
+
+
                 fetch(episodeCell.href).then(async episodeResponse => {
                     var episodeResponseBodyReader = episodeResponse.body.getReader();
                     try {
@@ -34,7 +34,7 @@
                         if (h3s.length === 1) {
                             podcasts[artURL].name = h3s[0].innerText.trim();
                             await browser.storage.local.set({
-                                [artURL] : podcasts[artURL].name
+                                [artURL]: podcasts[artURL].name
                             });
                         }
                     } catch (e) { }
@@ -74,7 +74,7 @@
     `;
 
         const container = document.createElement('div');
-        container.className=  'boc-main-wrapper boc-collapsed-episode-container';
+        container.className = 'boc-main-wrapper boc-collapsed-episode-container';
         container.innerHTML = tpl;
         const episodesContainer = container.getElementsByClassName('boc-episodes-list')[0];
 
@@ -90,7 +90,7 @@
     function toggleOpen(event) {
         let target = event.target;
         let linkClicked = false;
-        while(true){
+        while (true) {
             if (target.classList.contains('boc-main-wrapper')) {
                 break;
             }
@@ -114,7 +114,7 @@
 
 
     console.log('waiting now...', podcasts);
-    episodeRequests.forEach(async (p)=> {
+    episodeRequests.forEach(async (p) => {
         const artURL = await p;
         var podcastInfo = podcasts[artURL];
         if (!podcastInfo.container) {
