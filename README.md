@@ -16,3 +16,17 @@ I develop this extension on Firefox following this steps:
 2. Click on "Load Temporary Add-on..."
 3. Open the manifest.json file
 4. Click Reload every time I do any changes
+
+## Generating the extension
+
+Install dependencies with:
+
+```
+yarn
+```
+
+Run the following command to build the extension's zip file:
+
+```
+yarn run build
+```
