@@ -1,5 +1,7 @@
 const fs = require('fs');
+const { argv } = require('process');
 const archive = require('node-zip')();
+const semver = require('semver');
 const files = [
     'icon16.png',
     'icon48.png',
@@ -10,8 +12,18 @@ const files = [
     'manifest.json'
 ];
 
+let manifest = JSON.parse(fs.readFileSync('manifest.json'));
+let version = semver.parse(manifest.version);
+version = version.inc(argv[2] || 'patch').format();
+manifest.version = version;
+fs.writeFileSync('manifest.json', JSON.stringify(manifest, null, 4) + '\n');
+
+let package = JSON.parse(fs.readFileSync('package.json'));
+package.version = version;
+fs.writeFileSync('package.json', JSON.stringify(package, null, 4));
+
 files.forEach(fileName => {
-    archive.file(fileName, fs.readFileSync(fileName));
+    archive.file(fileName, fs.readFileSync(fileName) + '\n');
 });
 
 fs.writeFileSync(
