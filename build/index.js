@@ -33,9 +33,9 @@ fs.writeFileSync(
     archive.generate({ base64: false, compression: 'DEFLATE' }),
     'binary'
 );
-console.log(`Generated ${zipFilePath}`);
+console.log(`Generated ${process.cwd()}${zipFilePath}`);
 
-const doGit = async(version) => {
+const doGit = async (version) => {
     const git = simpleGit();
 
     version = `v${version}`

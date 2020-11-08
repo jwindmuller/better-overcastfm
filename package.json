@@ -1,6 +1,6 @@
 {
     "name": "better-overcastfm",
-    "version": "1.3.2",
+    "version": "1.3.3",
     "description": "Make the \"Active Podcasts\" lists on Overcast.fm a bit easier to navigate by grouping episodes by podcast and making each episode list collapsible.",
     "main": "index.js",
     "repository": "git@github.com:jwindmuller/better-overcastfm.git",
