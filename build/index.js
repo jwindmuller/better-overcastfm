@@ -27,11 +27,14 @@ files.forEach(fileName => {
     archive.file(fileName, fs.readFileSync(fileName) + '\n');
 });
 
+const zipFilePath = '../better-overcast.zip';
 fs.writeFileSync(
-    '../better-overcast.zip',
+    zipFilePath,
     archive.generate({ base64: false, compression: 'DEFLATE' }),
     'binary'
 );
+console.log(`Generated ${zipFilePath}`);
+
 const doGit = async(version) => {
     const git = simpleGit();
 
