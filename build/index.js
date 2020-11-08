@@ -2,6 +2,7 @@ const fs = require('fs');
 const { argv } = require('process');
 const archive = require('node-zip')();
 const semver = require('semver');
+const simpleGit = require('simple-git');
 const files = [
     'icon16.png',
     'icon48.png',
@@ -31,3 +32,14 @@ fs.writeFileSync(
     archive.generate({ base64: false, compression: 'DEFLATE' }),
     'binary'
 );
+const doGit = async(version) => {
+    const git = simpleGit();
+
+    version = `v${version}`
+    await git.add('.');
+    await git.commit(version);
+    await git.addTag(version);
+    await git.push();
+    await git.pushTags();
+};
+doGit(version);
