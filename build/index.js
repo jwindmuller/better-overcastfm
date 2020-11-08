@@ -15,7 +15,7 @@ files.forEach(fileName => {
 });
 
 fs.writeFileSync(
-    '../better-overcast.zip', 
-    archive.generate({ base64: false, compression: 'DEFLATE' }), 
+    '../better-overcast.zip',
+    archive.generate({ base64: false, compression: 'DEFLATE' }),
     'binary'
 );
